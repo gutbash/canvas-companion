@@ -1,3 +1,2 @@
 # canvas-companion
-
-Authors: Sebastian Gutierrez
+Author: Ryan Vansluytman
