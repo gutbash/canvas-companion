@@ -1,11 +1,11 @@
-# canvas companion
-Educational AI dialogue application designed to be seamlessly integrated into Canvas LMS, aiming to provide students with a personal and intuitive way to stay on top of course-related activities.
-# quickstart
-### setup the application
+# Canvas Companion
+**Canvas Companion** is an educational AI dialogue application designed to be seamlessly integrated into Canvas LMS, aiming to provide students with a personal and intuitive way to stay on top of course-related activities.
+# Quickstart
+### Setup the Application
 1. install **[node.js](https://nodejs.org/en)**.
 2. run `git clone https://github.com/gutbash/canvas-companion.git`
 3. run npm install to get the dependencies.
-### run the development server
+### Run the Development Server
 1. run `npm run dev` to start the development server.
 2. visit **http://localhost:3000** to view application.
 3. edit `app/layout.js` or `app/page.js` and save to see the updated result in browser.
