@@ -1,4 +1,4 @@
-# Canvas Companion
+# Abstract
 **Canvas Companion** is an educational AI dialogue application designed to be seamlessly integrated into Canvas LMS, aiming to provide students with a personal and intuitive way to stay on top of course-related activities.
 # Quickstart
 ### Setup the Application
