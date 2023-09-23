@@ -1,3 +1,3 @@
 # canvas-companion
 
-Authors: Sebastian Gutierrez
+Authors: Sebastian Gutierrez, Test
