@@ -6,7 +6,7 @@ const rubik = Rubik({ subsets: ['latin'] })
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'chatbot-memory-hci',
+  title: 'Canvas Companion',
   description: '',
 }
 
