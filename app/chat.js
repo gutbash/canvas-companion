@@ -31,7 +31,21 @@ export default function Chat() {
   const [summaryPrompt, setSummaryPrompt] = useState('Create a very concise summary of the above messages.');
   const textAreaRef = useRef(null);
   const editTextAreaRef = useRef(null);
-  const dateTime = new Date().toISOString();
+  const now = new Date()
+
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  
+  const day = now.getDate();
+  const month = monthNames[now.getMonth()];
+  const year = now.getFullYear();
+  const hour = now.getHours().toString().padStart(2, '0');
+  const minute = now.getMinutes().toString().padStart(2, '0');
+  const second = now.getSeconds().toString().padStart(2, '0');
+  
+  const dateTime = `${month} ${day}, ${year} ${hour}:${minute}`;
 
   useEffect(() => {
     textAreaRef.current.style.height = '20px';
@@ -113,9 +127,6 @@ export default function Chat() {
     }
   };
 
-
-
-
   const handleChatReset = (chatId) => {
     setChats(prevChats => {
       const newChats = { ...prevChats };
@@ -161,9 +172,7 @@ export default function Chat() {
   const handleSend = async (chatId) => {
     const systemMessage = {
       role: "system",
-      content: `You are a student's helpful educational companion of for their Canvas Learning Management System. Help the student keep up with assignments, quizzes, announcements, and more. Respond in full markdown format.
-      
-      Current Date: ${dateTime}`,
+      content: `It is ${dateTime}. You are a student's helpful educational companion of for their Canvas Learning Management System. Help the student keep up with assignments, quizzes, announcements, and more. Respond in full markdown format.`,
     };
 
     const prompt = messages[chatId].trim();

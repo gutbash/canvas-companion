@@ -1,4 +1,5 @@
 const { Configuration, OpenAIApi } = require("openai");
+const { getCourses, getGrades, getAssignments, getCoursesUtil, getCoursesList } = require('app/utils/canvas');
 
 const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
 
@@ -8,18 +9,13 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-function getAssignments(course, days) {
-  const assignments = {
-      "course": course,
-      "days": days,
-      "assignments": [{"name": "assignment 1", "due": "09-25-23", "points": "100"}],
-  };
-  return JSON.stringify(assignments);
-}
-
 export default async (req, res) => {
 
-  try{
+  try {
+
+    const courses = await getCoursesList();
+    const courseDictionary= await getCoursesUtil();
+    console.log(courseDictionary)
 
     const messages = req.body.query
 
@@ -27,27 +23,40 @@ export default async (req, res) => {
     console.log(messages)
     console.log('_______________/PROMPT___________________-')
     
-    const courses = ["Math", "Science"];
     const functions = [
       {
-          "name": "get_assignments",
-          "description": "Get assignments from a window of days.",
+          "name": "get_assignments_and_quizzes",
+          "description": "Get assignments and quizzes for a given course.",
           "parameters": {
               "type": "object",
               "properties": {
                   "course": {
                     "type": "string",
                     "enum": courses,
-                    "description": "Which course to grab assignments from.",
-                  },
-                  "days": {
-                    "type": "integer",
-                    "description": "Window of days to search forward and back.",
+                    "description": "Which course to grab assignments and quizzes from.",
                   },
               },
-              "required": ["course", "days"],
+              "required": ["course"],
           },
-      }
+      },
+      {
+        "name": "get_grades",
+        "description": "Get list of grades for each course.",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": [],
+        },
+      },
+      {
+        "name": "get_courses",
+        "description": "Get list of courses student is currently enrolled in.",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": [],
+        },
+      },
     ];
 
     const completion = await openai.createChatCompletion({
@@ -62,19 +71,24 @@ export default async (req, res) => {
     const responseMessage = completion.data.choices[0].message;
 
     if (responseMessage.function_call) {
+      console.log("----------------FUNCTION CALL DETECTED----------------");
       const availableFunctions = {
-        get_assignments: getAssignments,
+        get_assignments_and_quizzes: getAssignments,
+        get_grades: getGrades,
+        get_courses: getCourses,
       };  // only one function in this example, but you can have multiple
       const functionName = responseMessage.function_call.name;
       const functionToCall = availableFunctions[functionName];
       const functionArgs = JSON.parse(responseMessage.function_call.arguments);
-      const functionResponse = functionToCall(
-          functionArgs.course,
-          functionArgs.days,
-      );
+      const courseId = courseDictionary[functionArgs.course]
+      console.log(responseMessage.function_call.arguments)
+      console.log(functionArgs)
+      console.log(courseId)
+      const functionResponse = await functionToCall(courseId);
 
       console.log('________________FUNCTION CALL__________________-')
       console.log(responseMessage)
+      console.log(functionResponse)
       console.log('________________/FUNCTION CALL__________________-')
       
       messages.push(responseMessage);
@@ -105,7 +119,7 @@ export default async (req, res) => {
 
   } catch (error) {
     console.log('________________ERROR__________________-')
-    console.error(error);
+    // console.error(error);
     res.status(500).json({ error: 'An error occurred with the OpenAI API.' });
   }
 }
