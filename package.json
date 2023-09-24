@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.1.4",
+    "@auth0/auth0-react": "^2.2.1",
     "@primer/octicons-react": "^19.2.0",
     "@types/react-syntax-highlighter": "^15.5.7",
     "antd": "^5.7.0",
