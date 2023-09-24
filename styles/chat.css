@@ -199,7 +199,7 @@
 .message-text:hover {
   background-color: rgb(250, 250, 250);
 }
-
+*/
 .input-container button { /* Send Button */
   /* font-family: var(--font-mono); */
   transition: transform 0.1s ease-in-out;
