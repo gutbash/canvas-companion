@@ -7,6 +7,7 @@ function App() {
         <>
         <LoginButton />
         <LogoutButton />
+        <Profile />
         </>
     );
 }
