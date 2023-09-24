@@ -21,12 +21,13 @@ export default async (req, res) => {
 
   try{
 
-    console.log('_______________PROMPT__________________-')
-    console.log(req.body.query)
-    console.log('_______________/PROMPT___________________-')
-
     const messages = req.body.query
-    const courses = [];
+
+    console.log('_______________PROMPT__________________-')
+    console.log(messages)
+    console.log('_______________/PROMPT___________________-')
+    
+    const courses = ["Math", "Science"];
     const functions = [
       {
           "name": "get_assignments",
@@ -44,20 +45,21 @@ export default async (req, res) => {
                     "description": "Window of days to search forward and back.",
                   },
               },
-              "required": ["course"],
+              "required": ["course", "days"],
           },
       }
     ];
 
-    const completion = await openai.chat.completions.create({
+    const completion = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
         messages: messages,
         functions: functions,
         function_call: "auto",
     });
 
-    const response = completion.data.choices[0].message.content;
-    const responseMessage = response.choices[0].message;
+    let response = completion.data.choices[0].message.content;
+
+    const responseMessage = completion.data.choices[0].message;
 
     if (responseMessage.function_call) {
       const availableFunctions = {
@@ -82,26 +84,27 @@ export default async (req, res) => {
         "content": functionResponse,
       });
 
-      const secondResponse = await openai.chat.completions.create({
+      const secondResponse = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
         messages: messages,
       });  // get a new response from GPT where it can see the function response
+
+      response = secondResponse.data.choices[0].message.content;
 
       console.log('________________SECOND RESPONSE__________________-')
       console.log(secondResponse)
       console.log('________________/SECOND RESPONSE__________________-')
 
-      res.status(200).json(`${secondResponse}`)
-
     } else {
       console.log('________________RESPONSE__________________-')
       console.log(response)
       console.log('________________/RESPONSE__________________-')
-
-      res.status(200).json(`${response}`)
     }
 
+    res.status(200).json(`${response}`)
+
   } catch (error) {
+    console.log('________________ERROR__________________-')
     console.error(error);
     res.status(500).json({ error: 'An error occurred with the OpenAI API.' });
   }
