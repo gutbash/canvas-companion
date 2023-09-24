@@ -200,6 +200,8 @@
   background-color: rgb(250, 250, 250);
 }
 */
+
+
 .input-container button { /* Send Button */
   /* font-family: var(--font-mono); */
   transition: transform 0.1s ease-in-out;
@@ -215,11 +217,9 @@
   width: 50px;
   border-radius: 8px;
   /* Positioning */
-  position: absolute;
-  bottom: 20px; /* Adjust the distance from the bottom as needed */
-  left: 66%;
-  transform: translateX(-50%);
+  
 }
+
 
 .input-button:hover {
   color: gray;
@@ -237,20 +237,18 @@
   border: none; /* Removes the default button border */
   cursor: pointer; /* Changes the cursor to a hand when hovering over the button */
   outline: none; /* Removes the focus outline */
-  padding: 1; /* Removes the default button padding */
+  padding: 2; /* Removes the default button padding */
   display: flex; /* Makes sure the button contents are centered */
   align-items: center; /* Vertically center the content */
   justify-content: center; /* Horizontally center the content */
   height: 50px;
   width: 40px;
   border-radius: 8px;
-  position: absolute;
-  bottom: 20px;
-  left: 32.5%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adds a slight shadow for depth */
   font-size: 16px;
   width: 50px;
   color: darkgray;
+
 }
 
 .global-input-button-add-chat {
@@ -259,9 +257,6 @@
   background-color: rgb(190, 190, 190);
   color: white;
   width: 30px;
-  position: fixed;
-  right: 135px;
-  bottom: 25px;
 }
 
 .global-input-button-sub-chat {
@@ -283,8 +278,6 @@
   height: 50px;
   width: 75px;
   position: fixed;
-  right: 20px;
-  bottom: 15px;
   
 }
 
@@ -353,10 +346,7 @@
   height: 70px;
   border-radius: 10px;
   /* Positioning */
-  position: absolute;
-  bottom: 20px; /* Adjust the distance from the bottom as needed */
-  left: 50%;
-  transform: translateX(-50%);
+  
 }
 
 .edit-box {
