@@ -215,8 +215,8 @@
   justify-content: center; /* Horizontally center the content */
   height: 50px;
   width: 50px;
+  bottom: 50px;
   border-radius: 8px;
-  /* Positioning */
   
 }
 
@@ -251,35 +251,6 @@
 
 }
 
-.global-input-button-add-chat {
-  font-size: 14px;
-  font-weight: 600;
-  background-color: rgb(190, 190, 190);
-  color: white;
-  width: 30px;
-}
-
-.global-input-button-sub-chat {
-  font-size: 14px;
-  font-weight: 600;
-  background-color: rgb(190, 190, 190);
-  color: white;
-  width: 30px;
-  position: fixed;
-  right: 95px;
-  bottom: 25px;
-}
-
-.global-input-button-reset {
-  font-size: 14px;
-  font-weight: 600;
-  background-color: rgb(235, 171, 171);
-  color: white;
-  height: 50px;
-  width: 75px;
-  position: fixed;
-  
-}
 
 .global-input-button-add-chat:hover {
   color: white;
