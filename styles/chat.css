@@ -510,7 +510,7 @@ ul, ol {
   background-color: #ffdddd;
   color: rgb(236, 84, 84);
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
   padding: 10px 20px;
   align-items: center;
   position: fixed; /* Fixed position to stick to the top of the screen */
@@ -521,7 +521,7 @@ ul, ol {
 }
 
 .logo img {
-  height: 40px; /* Adjust the height according to your logo */
+  height: 45px; /* Adjust the height according to your logo */
   margin-right: 1.5em; /* Add spacing between the logo and title */
   margin-left: 1.5em;
 }
