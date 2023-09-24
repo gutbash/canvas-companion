@@ -32,6 +32,8 @@ export default function Chat() {
   const textAreaRef = useRef(null);
   const editTextAreaRef = useRef(null);
   const now = new Date()
+  const [canvasKey, setCanvasKey] = useState("");
+  const [openaiKey, setOpenaiKey] = useState("");
 
   const monthNames = [
     "January", "February", "March", "April", "May", "June",
@@ -240,6 +242,7 @@ export default function Chat() {
         </div>
         <h1>Companion</h1>
       </div>
+      
       <AnimatePresence>
         {Object.values(chats).every(chat => chat.length === 0) &&
           <motion.div

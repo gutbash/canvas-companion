@@ -41,10 +41,3 @@ gradeData = [
     'assignments' : [d for d in assignments if d['course_id'] == course['course_id']]
      }for course in gradeData if course['course_id'] in [d['id'] for d in courses]]
 print(gradeData)
-
-   
-
-
-
-
-
