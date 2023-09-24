@@ -11,7 +11,6 @@ ReactDOM.render(
     domain={domain}
     clientId={clientId}
     redirectUri={window.location.origin} >
-        <App />
     </Auth0Provider>,
     document.getElementsByClassNameId('root')
 );
