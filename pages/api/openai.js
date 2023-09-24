@@ -3,6 +3,14 @@ import { ChatOpenAI } from "langchain/chat_models/openai";
 
 const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
 
+const tools = [];
+const chat = new ChatOpenAI({ modelName: "gpt-4", temperature: 0, openAIApiKey: apiKey });
+
+const executor = await initializeAgentExecutorWithOptions(tools, chat, {
+    agentType: "openai-functions",
+    verbose: true,
+  });
+
 export default async (req, res) => {
 
   try{
@@ -11,15 +19,7 @@ export default async (req, res) => {
     console.log(req.body.query)
     console.log('_______________/PROMPT___________________-')
 
-    const completion = await openai.createChatCompletion({
-        model: "gpt-3.5-turbo-0613",
-        messages: req.body.query,
-        temperature: 1.0,
-        top_p: 1.0,
-        max_tokens: 220,
-    });
-
-    const response = completion.data.choices[0].message.content;
+    const response = await executor.run(req.body.query);
 
     console.log('________________RESPONSE__________________-')
     console.log(response)
