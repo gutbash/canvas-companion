@@ -7,12 +7,12 @@ keyAPI = '9957~e21BVu6knGUBYR7kLxHgq0o5HfdwtRKUJ4tSrMoEJ8aI2QwRIhdTDXJ2vC0lZ9VS'
 canvasAPI = requests.get(f"https://templeu.instructure.com/api/v1/courses?access_token={keyAPI}")
 raw_data = canvasAPI.json()
 
-
 courses = [{'id':d['id'],'name':d['name']} for d in raw_data if 
     'enrollment_term_id' in d and d['enrollment_term_id'] == raw_data[0]['enrollment_term_id']]
 weightData = [[requests.get(
     f"https://templeu.instructure.com/api/v1/courses/{course['id']}/assignment_groups?access_token={keyAPI}").json()]
               for course in courses]
+print(weightData)
 wdcopy = []
 for layer1 in weightData:
     for layer2 in layer1:
@@ -47,6 +47,7 @@ for course_data in gradeData:
         print(key, value)
         print('\n')
 
+
 # make a playlist
 print(len(gradeData))
 def findCourseIndex(courseName: str):
@@ -54,12 +55,16 @@ def findCourseIndex(courseName: str):
     for i in range(len(gradeData)):
         if courseName in gradeData[i]['course_name']:
             
-            print('yes')
+            # print('yes')
             # return gradeData[i]["course_id"]
             return i
     return False
 
-print("This is for NK \n\n\n")
+
+
+
+
+# print("This is for NK \n\n\n")
 # print(findCourseIndex("2168-003-F23-Data structures"))
 
 # first test
@@ -89,11 +94,22 @@ def getScore(courseIndex: int):
     output = str(gradeData[courseIndex]["score"])
     return output;
 
+def getAllScores():
+    output = ''
+    for i in range(len(gradeData)):
+        output += str(gradeData[i]["score"])
+        output += "\n"
 
-print(" \n\n")
-print(getAssignments(findCourseIndex("Low")))
-print("\n")
-print(getQuizzes(findCourseIndex("Low")))
+    return output
+    
+
+# testing
+# print(" \n\n")
+# print(getAssignments(findCourseIndex("Low")))
+# print("\n")
+# print(getQuizzes(findCourseIndex("Low")))
 print(getScore(findCourseIndex("Calc")))
+print("\n\n\n\n\n\n\n")
+print(getAllScores())
 
 
