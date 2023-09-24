@@ -1,12 +1,10 @@
 'use client';
 
-import DropdownMenu from './components/DropdownMenu';
-import RoleDropdownMenu from './components/RoleDropdownMenu';
 import { runLLM } from './utils/api';
 const { TextArea } = Input;
 import { LoadingOutlined, SwitcherOutlined, UndoOutlined } from '@ant-design/icons';
 const antIcon = <LoadingOutlined className='typing-indicator' spin />;
-import { Checkbox, Input, Spin } from 'antd';
+import {Input} from 'antd';
 import 'styles/chat.css';
 import React, { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -19,7 +17,7 @@ import { coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { UndoIcon, TriangleRightIcon, PlusIcon, StackIcon, DuplicateIcon, DashIcon } from '@primer/octicons-react';
 
 export default function Chat() {
-  const [chats, setChats] = useState({ [`chat-${uuidv4()}`]: [] });
+  const [chats, setChats] = useState({ [`chat-${uuidv4()}`]: [{ id: "test", content: "test", role: "test", visible: true, child: false }] });
   const [messages, setMessages] = useState({});
   const [editMessageId, setEditMessageId] = useState(null);
   const [edit, setEdit] = useState("")
@@ -114,52 +112,8 @@ export default function Chat() {
     }
   };
 
-  const handleNewMessage = (chatId) => {
-    let emptyMessage;
-    if (!chats[chatId] || chats[chatId].length === 0 || (chats[chatId][chats[chatId].length - 1].role === "assistant")) {
-      emptyMessage = { id: `message-${uuidv4()}`, role: "user", content: "", visible: true, child: false };
-    } else {
-      emptyMessage = { id: `message-${uuidv4()}`, role: "assistant", content: "", visible: true, child: false };
-    };
-
-    setChats({
-      ...chats,
-      [chatId]: chats[chatId] ? [...chats[chatId], emptyMessage] : [emptyMessage]
-    });
-  };
-
-  const handleAddChat = () => {
-    setChats(chats => ({
-      ...chats,
-      [`chat-${uuidv4()}`]: [],
-    }));
-  };
-
-  const handleSubtractChat = () => {
-    setChats(chats => {
-      const chatKeys = Object.keys(chats);
-      if (chatKeys.length === 1) {
-        return chats;
-      }
-
-      const lastKey = chatKeys[chatKeys.length - 1];
-      const { [lastKey]: _, ...rest } = chats;
-
-      return rest;
-    });
-  };
 
 
-  const handleTotalReset = () => {
-    setChats({ chat1: [] });
-    setEditMessageId(null);
-    setEdit("");
-    setHoveredMessageId(null);
-    setDropdownMessageId(null);
-    setDropdownOpen(false);
-    setIsTyping(false);
-    setSelected([]);
-  };
 
   const handleChatReset = (chatId) => {
     setChats(prevChats => {
@@ -201,45 +155,6 @@ export default function Chat() {
 
       setChats({ ...chats, [source.droppableId]: chatItems });
     }
-  };
-
-  const handleSummarize = async (chatId) => {
-    const summaryMessage = {
-      role: "user",
-      content: summaryPrompt,
-    };
-
-    const messageList = [...selected
-      .filter(msg => msg.visible)
-      .map(msg => ({
-        role: msg.role === "summary" ? "user" : msg.role,
-        content: msg.content
-      })), summaryMessage];
-    console.log(messageList);
-
-    runLLM(messageList).then(response => {
-      console.log(response);
-
-      const summary = { id: `message-${uuidv4()}`, role: "summary", content: String(response), visible: true, child: false };
-      setChats(prevChats => {
-        const newChats = { ...prevChats };
-        newChats[chatId] = [summary, ...newChats[chatId]];
-        return newChats;
-      });
-
-    }).then(() => {
-      setChats(prevChats => {
-        const newChats = { ...prevChats };
-        for (let chatId in newChats) {
-          newChats[chatId] = newChats[chatId].map(msg =>
-            selected.find(s => s.id === msg.id) ? { ...msg, visible: false, child: true } : msg
-          );
-        }
-        return newChats;
-      });
-    });
-
-    setSelected([]);
   };
 
   const handleSend = async (chatId) => {
@@ -332,6 +247,12 @@ export default function Chat() {
 
   return (
     <div className="chat-container">
+      <div className="header">
+        <div className="logo">
+          <img src="static/canvas.png" alt="canvas logo" />
+        </div>
+        <h1>Canvas Companion</h1>
+      </div>
       <AnimatePresence>
         {Object.values(chats).every(chat => chat.length === 0) &&
           <motion.div
@@ -373,14 +294,8 @@ export default function Chat() {
                                   <div className={msg.visible ? 'message-wrapper' : 'message-wrapper message-hidden'}>
                                     <div className="message-role">
                                       <div className='role-box'>
-                                        <Checkbox
-                                          checked={selected.some(e => e.id === msg.id)}
-                                          onChange={(e) => handleSelect(e.target.checked, msg)}
-                                        />
-                                        <span className="role" onClick={(e) => {
-                                          e.stopPropagation();
-                                          handleRoleDropdownToggle(msg.id)
-                                        }}>
+                                      
+                                        <span className="role" >
                                           {msg.role}
                                         </span>
                                       </div>
@@ -392,26 +307,9 @@ export default function Chat() {
                                             exit={{ opacity: 0, scale: 0.95, y: -5 }}
                                             transition={{ duration: 0.1 }}
                                           >
-                                            <RoleDropdownMenu
-                                              className='role-dropdown-menu'
-                                              message={msg}
-                                              onClose={handleRoleDropdownToggle}
-                                            />
                                           </motion.div>
                                         )}
                                       </AnimatePresence>
-                                      <DropdownMenu
-                                        className='dropdown-menu'
-                                        chatId={chatId}
-                                        message={msg}
-                                        onClose={handleDropdownToggle}
-                                        chats={chats}
-                                        setChats={setChats}
-                                        setDropdownMessageId={setDropdownMessageId}
-                                        setDropdownOpen={setDropdownOpen}
-                                        setEditMessageId={setEditMessageId}
-                                        setEdit={setEdit}
-                                      />
                                     </div>
                                     <div className="message-content">
                                       {editMessageId === msg.id ? (
@@ -431,10 +329,7 @@ export default function Chat() {
                                           }}
                                         />
                                       ) : (
-                                        <div className='message-text' onClick={e => {
-                                          setEdit(msg.content.toLowerCase());
-                                          setEditMessageId(msg.id);
-                                        }}>
+                                        <div className='message-text'>
                                           <div className="markdown-container">
                                             {
                                               msg.content.trim() !== '' ?
@@ -459,9 +354,7 @@ export default function Chat() {
                 <motion.div layoutId={`input-container-layout-id-${chatId}`} layout transition={{ duration: 0.5 }} className="input-container" key={`input-container-key-${chatId}`} id={`input-container-id-${chatId}`}>
                   <div className="input-container" style={{ marginTop: 'auto' }}>
 
-                    <button title='Reset Chat' onClick={() => handleChatReset(chatId)} className='input-button'><UndoIcon size={16} /></button>
-                    <button title='Add Message' onClick={() => handleNewMessage(chatId)} className='input-button'><PlusIcon size={24} /></button>
-                    <button title='Summarize' onClick={() => { if (selected.length > 0) handleSummarize(chatId) }} className={selected.length > 0 ? 'input-button' : 'input-button-disabled'}><StackIcon size={16} /></button>
+                    <button title='Reset Chat' onClick={() => handleChatReset(chatId)} className='input-button'><UndoIcon size={16} /></button>                    
                     <textarea
                       ref={textAreaRef}
                       type="text"
@@ -483,9 +376,6 @@ export default function Chat() {
           </div>
         </DragDropContext>
       </motion.div>
-      <button title='Add Chat' onClick={handleAddChat} className='input-button global-input-button-add-chat'><PlusIcon size={16} /></button>
-      <button title='Subtract Chat' onClick={handleSubtractChat} className='input-button global-input-button-sub-chat'><DashIcon size={16} /></button>
-      <button onClick={handleTotalReset} className='input-button global-input-button-reset'>Reset</button>
     </div>
   );
 }
