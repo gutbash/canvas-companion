@@ -237,7 +237,7 @@ export default function Chat() {
             animate="visible"
             exit="exit"
           >
-            Canvas Companion
+            
           </motion.div>
         }
       </AnimatePresence>
