@@ -213,10 +213,10 @@
   display: flex; /* Makes sure the button contents are centered */
   align-items: center; /* Vertically center the content */
   justify-content: center; /* Horizontally center the content */
-  height: 50px;
+  height: 40px;
   width: 50px;
   bottom: 50px;
-  border-radius: 8px;
+  border-radius: 10px;
   
 }
 
@@ -293,12 +293,12 @@
   color: darkgray;
 }
 
-/*.input-box:hover, .input-box:focus {
-  width: 250px;
-}/
-*/
+.input-box:hover, .input-box:focus {
+  width: 300px;
+}
+
 .input-box {
-  width: 500px; /* Set an initial width */
+  width: 250px; /* Set an initial width */
   transition: width 0.3s ease-in-out;
   font-family: 'Inter', sans-serif;
   box-shadow: 0 0 10px rgba(236, 235, 235, 0.1); /* Adds a slight shadow for depth */
@@ -387,10 +387,10 @@
 .title {
   text-shadow: 0 0 2em rgb(0, 0, 0, 0.5);
   opacity: 10%;
-  font-size: 30px; 
-  font-weight: 800;
+  font-size: 20px;
+  font-weight: 500;
+  
   position: fixed;
-  left: 45%;
   text-align: center;
   justify-content: center;
   user-select: none;
@@ -468,8 +468,8 @@ ul, ol {
 }
 
 .header {
-  background-color: #ffdddd;
-  color: rgb(236, 84, 84);
+  background-color: #e4e4e4;
+  color: rgb(223, 82, 82);
   display: flex;
   justify-content: left;
   padding: 10px 20px;
@@ -482,7 +482,7 @@ ul, ol {
 }
 
 .logo img {
-  height: 45px; /* Adjust the height according to your logo */
-  margin-right: 1.5em; /* Add spacing between the logo and title */
+  height: 40px; /* Adjust the height according to your logo */
+  margin-right: 1.25em; /* Add spacing between the logo and title */
   margin-left: 1.5em;
 }
