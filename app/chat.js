@@ -242,6 +242,7 @@ export default function Chat() {
         </div>
         <h1>Companion</h1>
       </div>
+      
       <AnimatePresence>
         {Object.values(chats).every(chat => chat.length === 0) &&
           <motion.div

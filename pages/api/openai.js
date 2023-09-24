@@ -1,7 +1,7 @@
 const { Configuration, OpenAIApi } = require("openai");
 const { getCourses, getGrades, getAssignments, getCoursesUtil, getCoursesList } = require('app/utils/canvas');
 
-const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+const apiKey = process.env.OPENAI_API_KEY;
 
 const configuration = new Configuration({
   apiKey: apiKey,
