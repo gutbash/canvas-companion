@@ -329,10 +329,10 @@
   color: darkgray;
 }
 
-.input-box:hover, .input-box:focus {
+/*.input-box:hover, .input-box:focus {
   width: 250px;
-}
-
+}/
+*/
 .input-box {
   width: 500px; /* Set an initial width */
   transition: width 0.3s ease-in-out;
