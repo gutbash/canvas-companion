@@ -17,7 +17,7 @@ import { coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { UndoIcon, TriangleRightIcon, PlusIcon, StackIcon, DuplicateIcon, DashIcon } from '@primer/octicons-react';
 
 export default function Chat() {
-  const [chats, setChats] = useState({ [`chat-${uuidv4()}`]: [{ id: "test", content: "test", role: "test", visible: true, child: false }] });
+  const [chats, setChats] = useState({ [`chat-${uuidv4()}`]: [] });
   const [messages, setMessages] = useState({});
   const [editMessageId, setEditMessageId] = useState(null);
   const [edit, setEdit] = useState("")
@@ -160,7 +160,7 @@ export default function Chat() {
   const handleSend = async (chatId) => {
     const systemMessage = {
       role: "system",
-      content: "You are a helpful assistant. Respond as concisely as possible in full markdown format.",
+      content: "You are a helpful educational assistant of a student for their Canvas Learning Management System. Help the student keep up with assignments, quizzes, announcements, and more. Respond in full markdown format.",
     };
 
     const prompt = messages[chatId].trim();
