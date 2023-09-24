@@ -97,7 +97,8 @@ def getScore(courseIndex: int):
 def getAllScores():
     output = ''
     for i in range(len(gradeData)):
-        output += str(gradeData[i]["score"])
+        output += str(gradeData[i]["course_name"]) + ": "
+        output += str(gradeData[i]["score"]) + "% "
         output += "\n"
 
     return output
