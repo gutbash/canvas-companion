@@ -8,6 +8,7 @@
   min-height: 100vh; /* Adjust this as needed */
   color: rgb(61, 61, 61);
   min-width: 300px;
+  gap: 10px;
 }
 
 .chat-instances-container {
@@ -199,7 +200,7 @@
   background-color: rgb(250, 250, 250);
 }
 
-.input-container button {
+.input-container button { /* Send Button */
   /* font-family: var(--font-mono); */
   transition: transform 0.1s ease-in-out;
   background-color: rgb(219, 219, 219);
@@ -210,9 +211,14 @@
   display: flex; /* Makes sure the button contents are centered */
   align-items: center; /* Vertically center the content */
   justify-content: center; /* Horizontally center the content */
-  height: 30px;
-  width: 40px;
+  height: 50px;
+  width: 50px;
   border-radius: 8px;
+  /* Positioning */
+  position: absolute;
+  bottom: 20px; /* Adjust the distance from the bottom as needed */
+  left: 66%;
+  transform: translateX(-50%);
 }
 
 .input-button:hover {
@@ -225,7 +231,7 @@
   transform: scale(0.9);
 }
 
-.input-button {
+.input-button { /* Reset Button */
   transition: transform 0.1s ease-in-out;
   background-color: rgb(219, 219, 219);
   border: none; /* Removes the default button border */
@@ -235,10 +241,12 @@
   display: flex; /* Makes sure the button contents are centered */
   align-items: center; /* Vertically center the content */
   justify-content: center; /* Horizontally center the content */
-  height: 30px;
+  height: 50px;
   width: 40px;
   border-radius: 8px;
-
+  position: absolute;
+  bottom: 20px;
+  left: 32.5%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adds a slight shadow for depth */
   font-size: 16px;
   width: 50px;
@@ -272,10 +280,12 @@
   font-weight: 600;
   background-color: rgb(235, 171, 171);
   color: white;
-  width: 65px;
+  height: 50px;
+  width: 75px;
   position: fixed;
   right: 20px;
-  bottom: 25px;
+  bottom: 15px;
+  
 }
 
 .global-input-button-add-chat:hover {
@@ -324,24 +334,29 @@
 }
 
 .input-box {
-  width: 200px; /* Set an initial width */
+  width: 500px; /* Set an initial width */
   transition: width 0.3s ease-in-out;
   font-family: 'Inter', sans-serif;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adds a slight shadow for depth */
+  box-shadow: 0 0 10px rgba(236, 235, 235, 0.1); /* Adds a slight shadow for depth */
   color: gray;
   font-size: 16px;
-  background-color: rgb(219, 219, 219);
+  background-color: rgb(219, 216, 216);
   border: none;
   outline: none;
   padding-left: 10px;
   padding-right: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 17px;
+  padding-bottom: 10px;
   resize: none;
   overflow: hidden;
-  line-height: 20px;
-  height: 20px;
-  border-radius: 8px;
+  line-height: 10px;
+  height: 70px;
+  border-radius: 10px;
+  /* Positioning */
+  position: absolute;
+  bottom: 20px; /* Adjust the distance from the bottom as needed */
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .edit-box {

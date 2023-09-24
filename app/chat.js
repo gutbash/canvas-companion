@@ -308,6 +308,7 @@ export default function Chat() {
   return (
     <div className="chat-container">
       <AnimatePresence>
+      <button title='Reset Chat' onClick={() => handleChatReset(chatId)} className='input-button'><UndoIcon size={16} /></button> 
         {Object.values(chats).every(chat => chat.length === 0) &&
           <motion.div
             className="title"
@@ -348,10 +349,7 @@ export default function Chat() {
                                   <div className={msg.visible ? 'message-wrapper' : 'message-wrapper message-hidden'}>
                                     <div className="message-role">
                                       <div className='role-box'>
-                                        <Checkbox
-                                          checked={selected.some(e => e.id === msg.id)}
-                                          onChange={(e) => handleSelect(e.target.checked, msg)}
-                                        />
+                                        
                                         <span className="role" onClick={(e) => {
                                           e.stopPropagation();
                                           handleRoleDropdownToggle(msg.id)
@@ -367,26 +365,11 @@ export default function Chat() {
                                             exit={{ opacity: 0, scale: 0.95, y: -5 }}
                                             transition={{ duration: 0.1 }}
                                           >
-                                            <RoleDropdownMenu
-                                              className='role-dropdown-menu'
-                                              message={msg}
-                                              onClose={handleRoleDropdownToggle}
-                                            />
+                                            
                                           </motion.div>
                                         )}
                                       </AnimatePresence>
-                                      <DropdownMenu
-                                        className='dropdown-menu'
-                                        chatId={chatId}
-                                        message={msg}
-                                        onClose={handleDropdownToggle}
-                                        chats={chats}
-                                        setChats={setChats}
-                                        setDropdownMessageId={setDropdownMessageId}
-                                        setDropdownOpen={setDropdownOpen}
-                                        setEditMessageId={setEditMessageId}
-                                        setEdit={setEdit}
-                                      />
+                                    
                                     </div>
                                     <div className="message-content">
                                       {editMessageId === msg.id ? (
@@ -433,10 +416,8 @@ export default function Chat() {
                 </Droppable>
                 <motion.div layoutId={`input-container-layout-id-${chatId}`} layout transition={{ duration: 0.5 }} className="input-container" key={`input-container-key-${chatId}`} id={`input-container-id-${chatId}`}>
                   <div className="input-container" style={{ marginTop: 'auto' }}>
-
-                    <button title='Reset Chat' onClick={() => handleChatReset(chatId)} className='input-button'><UndoIcon size={16} /></button>
-                    <button title='Add Message' onClick={() => handleNewMessage(chatId)} className='input-button'><PlusIcon size={24} /></button>
-                    <button title='Summarize' onClick={() => { if (selected.length > 0) handleSummarize(chatId) }} className={selected.length > 0 ? 'input-button' : 'input-button-disabled'}><StackIcon size={16} /></button>
+                    
+                  
                     <textarea
                       ref={textAreaRef}
                       type="text"
@@ -458,9 +439,7 @@ export default function Chat() {
           </div>
         </DragDropContext>
       </motion.div>
-      <button title='Add Chat' onClick={handleAddChat} className='input-button global-input-button-add-chat'><PlusIcon size={16} /></button>
-      <button title='Subtract Chat' onClick={handleSubtractChat} className='input-button global-input-button-sub-chat'><DashIcon size={16} /></button>
-      <button onClick={handleTotalReset} className='input-button global-input-button-reset'>Reset</button>
+
     </div>
   );
 }
