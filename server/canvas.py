@@ -32,14 +32,23 @@ for layer1 in courseData:
                                 'course_id': assignment['course_id'],'weight' : (item := [d['group_weight'] 
                                 for d in weightData if d['id'] == assignment['assignment_group_id']])}
             assignments.append(assignment)
+            
 gradeData = requests.get(f"https://templeu.instructure.com/api/v1/users/self/enrollments?access_token={keyAPI}").json() 
-
 gradeData = [
     {'course_name': (val := next((d['name'] for d in courses if d['id'] == course['course_id']), None)),
      'course_id' : course['course_id'],
      'score' : course['grades']['current_score'],
     'assignments' : [d for d in assignments if d['course_id'] == course['course_id']]
      }for course in gradeData if course['course_id'] in [d['id'] for d in courses]]
+
+def getAllScores():
+    output = ''
+    for i in range(len(gradeData)):
+        output += str(gradeData[i]["course_name"]) + ": "
+        output += str(gradeData[i]["score"]) + "% "
+        output += "\n"
+
+    return output
 
 # print(gradeData[0]['course_name'])
 for course_data in gradeData:
@@ -93,15 +102,6 @@ def getScore(courseIndex: int):
     output = ''
     output = str(gradeData[courseIndex]["score"])
     return output;
-
-def getAllScores():
-    output = ''
-    for i in range(len(gradeData)):
-        output += str(gradeData[i]["course_name"]) + ": "
-        output += str(gradeData[i]["score"]) + "% "
-        output += "\n"
-
-    return output
     
 
 # testing
