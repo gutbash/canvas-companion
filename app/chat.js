@@ -17,7 +17,7 @@ import { coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { UndoIcon, TriangleRightIcon, PlusIcon, StackIcon, DuplicateIcon, DashIcon } from '@primer/octicons-react';
 
 export default function Chat() {
-  const [chats, setChats] = useState({ [`chat-${uuidv4()}`]: [{ id: "test", content: "test", role: "test", visible: true, child: false }] });
+  const [chats, setChats] = useState({ [`chat-${uuidv4()}`]: [] });
   const [messages, setMessages] = useState({});
   const [editMessageId, setEditMessageId] = useState(null);
   const [edit, setEdit] = useState("")
@@ -31,6 +31,21 @@ export default function Chat() {
   const [summaryPrompt, setSummaryPrompt] = useState('Create a very concise summary of the above messages.');
   const textAreaRef = useRef(null);
   const editTextAreaRef = useRef(null);
+  const now = new Date()
+
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  
+  const day = now.getDate();
+  const month = monthNames[now.getMonth()];
+  const year = now.getFullYear();
+  const hour = now.getHours().toString().padStart(2, '0');
+  const minute = now.getMinutes().toString().padStart(2, '0');
+  const second = now.getSeconds().toString().padStart(2, '0');
+  
+  const dateTime = `${month} ${day}, ${year} ${hour}:${minute}`;
 
   useEffect(() => {
     textAreaRef.current.style.height = '20px';
@@ -112,9 +127,6 @@ export default function Chat() {
     }
   };
 
-
-
-
   const handleChatReset = (chatId) => {
     setChats(prevChats => {
       const newChats = { ...prevChats };
@@ -160,7 +172,7 @@ export default function Chat() {
   const handleSend = async (chatId) => {
     const systemMessage = {
       role: "system",
-      content: "You are a helpful assistant. Respond as concisely as possible in full markdown format.",
+      content: `It is ${dateTime}. You are a student's helpful educational companion of for their Canvas Learning Management System. Help the student keep up with assignments, quizzes, announcements, and more. Respond in full markdown format.`,
     };
 
     const prompt = messages[chatId].trim();
@@ -226,7 +238,7 @@ export default function Chat() {
         <div className="logo">
           <img src="static/canvas.png" alt="canvas logo" />
         </div>
-        <h1>Canvas Companion</h1>
+        <h1>Companion</h1>
       </div>
       <AnimatePresence>
         {Object.values(chats).every(chat => chat.length === 0) &&
@@ -237,7 +249,6 @@ export default function Chat() {
             animate="visible"
             exit="exit"
           >
-            
           </motion.div>
         }
       </AnimatePresence>
