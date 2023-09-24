@@ -12,7 +12,7 @@ function getAssignments(course, days) {
   const assignments = {
       "course": course,
       "days": days,
-      "assignments": [{"name": "assignment 1", "due": "09-25-23"}],
+      "assignments": [{"name": "assignment 1", "due": "09-25-23", "points": "100"}],
   };
   return JSON.stringify(assignments);
 }

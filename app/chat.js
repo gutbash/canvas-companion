@@ -31,6 +31,7 @@ export default function Chat() {
   const [summaryPrompt, setSummaryPrompt] = useState('Create a very concise summary of the above messages.');
   const textAreaRef = useRef(null);
   const editTextAreaRef = useRef(null);
+  const dateTime = new Date().toISOString();
 
   useEffect(() => {
     textAreaRef.current.style.height = '20px';
@@ -160,7 +161,9 @@ export default function Chat() {
   const handleSend = async (chatId) => {
     const systemMessage = {
       role: "system",
-      content: "You are a helpful educational assistant of a student for their Canvas Learning Management System. Help the student keep up with assignments, quizzes, announcements, and more. Respond in full markdown format.",
+      content: `You are a student's helpful educational companion of for their Canvas Learning Management System. Help the student keep up with assignments, quizzes, announcements, and more. Respond in full markdown format.
+      
+      Current Date: ${dateTime}`,
     };
 
     const prompt = messages[chatId].trim();
@@ -226,7 +229,7 @@ export default function Chat() {
         <div className="logo">
           <img src="static/canvas.png" alt="canvas logo" />
         </div>
-        <h1>Canvas Companion</h1>
+        <h1>Companion</h1>
       </div>
       <AnimatePresence>
         {Object.values(chats).every(chat => chat.length === 0) &&
@@ -237,7 +240,6 @@ export default function Chat() {
             animate="visible"
             exit="exit"
           >
-            
           </motion.div>
         }
       </AnimatePresence>
