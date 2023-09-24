@@ -14,6 +14,7 @@
     "@types/react-syntax-highlighter": "^15.5.7",
     "antd": "^5.7.0",
     "framer-motion": "^10.12.16",
+    "langchain": "^0.0.153",
     "next": "^13.4.5",
     "openai": "^3.2.1",
     "react": "18.2.0",

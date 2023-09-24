@@ -1,12 +1,7 @@
-const { Configuration, OpenAIApi } = require("openai");
+import { initializeAgentExecutorWithOptions } from "langchain/agents";
+import { ChatOpenAI } from "langchain/chat_models/openai";
 
 const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
-
-const configuration = new Configuration({
-  apiKey: apiKey,
-});
-
-const openai = new OpenAIApi(configuration);
 
 export default async (req, res) => {
 
