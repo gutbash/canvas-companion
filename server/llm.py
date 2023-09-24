@@ -1,4 +1,7 @@
 import os
+import canvas
+
+
 from dotenv import load_dotenv
 from flask_cors import CORS
 from flask import Flask, request, jsonify
@@ -10,6 +13,9 @@ from langchain.tools.render import format_tool_to_openai_function
 from langchain.agents.format_scratchpad import format_to_openai_functions
 from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser
 
+print(canvas.gradeData)
+
+
 app = Flask(__name__)
 
 # Load .env.local file
@@ -20,15 +26,33 @@ openai_api_key = os.environ.get('NEXT_PUBLIC_OPENAI_API_KEY')
 #database_url = os.environ.get('DATABASE_URL')
 
 def get_assignments(course: str, recency_days: int):
+  courseIndex = canvas.findCourseIndex(course)
+  if(courseIndex == False):
+    return "Sorry this is not a valid class"
+  else: 
+    return canvas.getAssignments(courseIndex)
+     
   pass
 
 def get_quizzes(course: str, recency_days: int):
+  courseIndex = canvas.findCourseIndex(course)
+  if(courseIndex == False):
+    return "Sorry this is not a valid class"
+  else: 
+    return canvas.getQuizzes(courseIndex)
   pass
 
 def get_announcements(course: str, recency_days: int):
+  courseIndex = canvas.findCourseIndex(course)
+  if(courseIndex == False):
+    return "Sorry this is not a valid class"
+  else: 
+    canvas.getScore(courseIndex)
   pass
 
 def get_grades(course: str):
+  if(course in dict):
+    return("Your grade is: " + dict[course])
   pass
 
 llm = ChatOpenAI(
