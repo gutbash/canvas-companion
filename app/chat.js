@@ -16,6 +16,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { UndoIcon, TriangleRightIcon, PlusIcon, StackIcon, DuplicateIcon, DashIcon } from '@primer/octicons-react';
 
+
 export default function Chat() {
   const [chats, setChats] = useState({ [`chat-${uuidv4()}`]: [] });
   const [messages, setMessages] = useState({});
@@ -32,8 +33,7 @@ export default function Chat() {
   const textAreaRef = useRef(null);
   const editTextAreaRef = useRef(null);
   const now = new Date()
-  const [canvasKey, setCanvasKey] = useState("");
-  const [openaiKey, setOpenaiKey] = useState("");
+ /* require('./Redis-Node/get-connection')*/ /*---->  Implementing Redis was not Successful*/
 
   const monthNames = [
     "January", "February", "March", "April", "May", "June",
