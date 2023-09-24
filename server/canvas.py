@@ -40,11 +40,60 @@ gradeData = [
      'score' : course['grades']['current_score'],
     'assignments' : [d for d in assignments if d['course_id'] == course['course_id']]
      }for course in gradeData if course['course_id'] in [d['id'] for d in courses]]
-print(gradeData)
 
-   
+# print(gradeData[0]['course_name'])
+for course_data in gradeData:
+    for key, value in course_data.items():
+        print(key, value)
+        print('\n')
+
+# make a playlist
+print(len(gradeData))
+def findCourseIndex(courseName: str):
+
+    for i in range(len(gradeData)):
+        if courseName in gradeData[i]['course_name']:
+            
+            print('yes')
+            # return gradeData[i]["course_id"]
+            return i
+    return False
+
+print("This is for NK \n\n\n")
+# print(findCourseIndex("2168-003-F23-Data structures"))
+
+# first test
+
+def getAssignments(courseIndex: int):
+    output = ""
+    for item in gradeData[courseIndex]["assignments"]:
+        output += str(item)
+        output += "\n"
+    
+
+    return output
+
+def getQuizzes(courseIndex: int):
+    i = 0
+    output = ""
+    for item in gradeData[courseIndex]["assignments"]:
+        if "Quiz" in gradeData[courseIndex]["assignments"][i]['name'] or "quiz" in gradeData[courseIndex]["assignments"][i]['name']:
+            output += str(item)
+        i += 1
+    # break down output
+    # stroutput = str(output[0]["name"]) + str(output[0]["weight"])
+    return output
+
+def getScore(courseIndex: int):
+    output = ''
+    output = str(gradeData[courseIndex]["score"])
+    return output;
 
 
-
+print(" \n\n")
+print(getAssignments(findCourseIndex("Low")))
+print("\n")
+print(getQuizzes(findCourseIndex("Low")))
+print(getScore(findCourseIndex("Calc")))
 
 
