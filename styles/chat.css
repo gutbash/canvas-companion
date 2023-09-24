@@ -517,7 +517,7 @@ ul, ol {
   width: 100%; /* Make the header full-width */
   top: 0; /* Stick to the top of the screen */
   z-index: 100; /* Ensure it's above other content */
-  padding: 5px 0; /* Adjust top and bottom padding as needed */
+  padding: 1px 0 0px 0; /* Adjust top and bottom padding as needed */
 }
 
 .logo img {
