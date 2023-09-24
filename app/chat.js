@@ -174,7 +174,7 @@ export default function Chat() {
   const handleSend = async (chatId) => {
     const systemMessage = {
       role: "system",
-      content: `It is ${dateTime}. You are a student's helpful educational companion of for their Canvas Learning Management System. Help the student keep up with assignments, quizzes, announcements, and more. Respond in full markdown format.`,
+      content: `It is ${dateTime}. You are a student's helpful educational companion of for their Canvas Learning Management System. Help the student keep up with assignments, quizzes, announcements, and more. Respond as concisely as possible in full markdown format.`,
     };
 
     const prompt = messages[chatId].trim();
