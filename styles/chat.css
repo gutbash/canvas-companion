@@ -63,7 +63,7 @@
   transition: transform 0.2s ease-in-out;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 15px;
   padding-left: 20px;
-  padding-top: 25px;
+  padding-top: 10px;
   padding-bottom: 10px;
   border-radius: 20px;
 }
@@ -115,12 +115,12 @@
   margin-left: 7px;
   border-radius: 8px;
 }
-
+/*
 .role:hover {
   cursor: pointer;
   background-color: whitesmoke;
 }
-
+*/
 .role-dropdown-menu {
   cursor: pointer;
   position: absolute; /* Positions the dropdown relative to the nearest positioned ancestor */
@@ -163,11 +163,11 @@
 .role-dropdown-menu button:active {
   transform: scale(0.9);
 }
-
+/*
 .message-wrapper:hover {
-  transform: scale(1.025); /* Added hover effect */
+  transform: scale(1.025);
 }
-
+*/
 .message-actions:hover {
   transform: scale(1.1); /* Added hover effect */
   background-color: whitesmoke;
@@ -195,7 +195,7 @@
   border-radius: 0.5em;
   color: rgb(110, 110, 110);
 }
-
+/*
 .message-text:hover {
   background-color: rgb(250, 250, 250);
 }
@@ -504,4 +504,24 @@ ul, ol {
 .typing-indicator {
   font-size: 24px;
   color: gray;
+}
+
+.header {
+  background-color: #ffdddd;
+  color: rgb(236, 84, 84);
+  display: flex;
+  justify-content: left;
+  padding: 10px 20px;
+  align-items: center;
+  position: fixed; /* Fixed position to stick to the top of the screen */
+  width: 100%; /* Make the header full-width */
+  top: 0; /* Stick to the top of the screen */
+  z-index: 100; /* Ensure it's above other content */
+  padding: 1px 0 0px 0; /* Adjust top and bottom padding as needed */
+}
+
+.logo img {
+  height: 45px; /* Adjust the height according to your logo */
+  margin-right: 1.5em; /* Add spacing between the logo and title */
+  margin-left: 1.5em;
 }
