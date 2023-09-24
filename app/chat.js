@@ -220,31 +220,6 @@ export default function Chat() {
     exit: { opacity: 0, y: -300, transition: { duration: 0.2 } }
   }
 
-  async function sendMessageToAPI(message) {
-    try {
-      // Using fetch
-      const response = await fetch('http://localhost:5000/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ message: message })
-      });
-      
-      const data = await response.json();
-  
-      return data.response;
-  
-      // Alternatively, using Axios:
-      // const response = await axios.post('http://localhost:5000/api/chat', { message: message });
-      // return response.data.response;
-  
-    } catch (error) {
-      console.error("Error sending message:", error);
-      return null;
-    }
-  }
-
   return (
     <div className="chat-container">
       <div className="header">
