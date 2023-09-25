@@ -9,4 +9,4 @@
 1. run `npm run dev` to start the development server.
 2. visit **http://localhost:3000** to view application.
 3. edit `app/layout.js` or `app/page.js` and save to see the updated result in browser.
-4. get the `.env.local` file to access openai.
+4. get the `.env.local` file and add the two keys to access openai + canvas lms.
