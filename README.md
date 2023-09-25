@@ -4,7 +4,7 @@
 ### setup the application
 1. install **[node.js](https://nodejs.org/en)**.
 2. run `git clone https://github.com/gutbash/canvas-companion.git`
-3. run npm install to get the dependencies.
+3. run `npm install` to get the dependencies.
 ### run the development server
 1. run `npm run dev` to start the development server.
 2. visit **http://localhost:3000** to view application.
